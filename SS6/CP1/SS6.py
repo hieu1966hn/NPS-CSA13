@@ -43,6 +43,14 @@ class GradeManager:
         for student in self.students:
             total += student.calculate_average()
         return total/len(self.students)
+    
+    def save_data(self, filename):
+        for student in self.students:
+            with open(filename, 'w', encoding='utf-8') as file: # encoding để lưu tiếng Việt
+                avg = student.calculate_average()
+                file.write(f"{student.name}: {avg:.2f}\n") # làm tròn 2 số sau dấu phẩy \n: xuống dòng trong file
+                print(f"Đã lưu dữ liệu vào file: {filename}")
+            
             
         
 ### Giao diện người dùng main()
@@ -68,7 +76,10 @@ def main():
         elif choice == "3":
             avg = manager.calculate_average_all()
             print(f'Điểm trung bình toàn bộ học viên: {avg:.2f}')
-        # elif choice == "4":
+        elif choice == "4":
+            filename = input("Nhập tên file để lưu: (VD: diem.txt) ")
+            manager.save_data(filename)
+            
         elif choice == "5":
             print("Thoát chương trình.")
             break
